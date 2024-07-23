@@ -2,7 +2,7 @@
 red='\033[0;31m'
 green='\033[0;32m'
 none='\033[0m'
-scripts_repo="https://raw.githubusercontent.com/codepath/cyb101-vm-setup/main/Files/"
+scripts_dir="./Files/"
 
 echo "[UNIT 3 LAB] Starting script..."
 
@@ -17,12 +17,12 @@ else
     
     # Download and configure the file
     success=true
-    wget "${scripts_repo}unit3/crackfiles.zip" -O "$HOME/unit3/crackfiles.zip" || success=false
+    cp "${scripts_dir}unit3/crackfiles.zip" "$HOME/unit3/crackfiles.zip" || success=false
 
     # Verify copy was successful
     if [ "$success" = false ]; then
-        echo -e "${red}[UNIT 3 LAB]${none} Error: Could not download crackfiles.zip to unit3/crackfiles.zip"
-        echo -e "${red}[UNIT 3 LAB]${none} Try downloading manually from ${scripts_repo}unit3/crackfiles.zip and placing in ~/unit3."
+        echo -e "${red}[UNIT 3 LAB]${none} Error: Could not copy crackfiles.zip to unit3/crackfiles.zip"
+        echo -e "${red}[UNIT 3 LAB]${none} Try copying manually from ${scripts_dir}unit3/crackfiles.zip and placing in ~/unit3."
         exit 1
     else
         sudo chown $USER:$USER "$HOME/unit3/crackfiles.zip"
@@ -30,26 +30,4 @@ else
     fi
 fi
 
-# Check if the old John needs to be removed
-if command -v john >/dev/null 2>&1 ; then
-    echo -e "[UNIT 3 LAB] Removing apt-get John package."
-    sudo apt-get purge -y john
-fi
-
-# Check if the script needs to run
-if command -v john-the-ripper >/dev/null 2>&1 ; then
-    echo -e "${green}[UNIT 3 LAB]${none} John (snap) is already installed."
-    exit 0
-fi
-echo "[UNIT 3 LAB] Installing John..."
-
-# Install John
-sudo snap install john-the-ripper
-
-# Print output based on whether or not John is installed
-if command -v john-the-ripper >/dev/null 2>&1 ; then
-    echo -e "${green}[UNIT 3 LAB]${none} John (snap) installed successfully."
-else
-    echo -e "${red}[UNIT 3 LAB]${none} ERROR: John (snap) was not installed correctly!"
-    exit 1
-fi
+echo -e "${green}[UNIT 3 LAB]${none} Setup successful!"

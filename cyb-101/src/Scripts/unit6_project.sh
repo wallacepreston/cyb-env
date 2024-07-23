@@ -1,7 +1,7 @@
 #!/bin/bash
 none='\033[0m'
 green='\033[0;32m'
-scripts_repo="https://raw.githubusercontent.com/codepath/cyb101-vm-setup/main/Files/"
+scripts_dir="./Files/"
 
 echo "[UNIT 6 PROJECT] Starting script..."
 
@@ -21,7 +21,7 @@ if [ ! -d "$HOME/unit6" ]; then
     mkdir "$HOME/unit6"
 fi
 
-# Download the required files into the unit6 folder
+# Copy the required files into the unit6 folder
 if [ -e "$HOME/unit6/images.zip" ]; then
     echo -e "${green}[UNIT 6 PROJECT]${none} File images.zip found at ~/unit6."
 else
@@ -30,21 +30,21 @@ else
         mkdir -p "$HOME/unit6"
     fi
     
-    # Download and configure the file
+    # Copy and configure the file
     success=true
-    wget "${scripts_repo}unit6/images.zip" -O "$HOME/unit6/images.zip" || success=false
+    cp "${scripts_dir}unit6/images.zip" "$HOME/unit6/images.zip" || success=false
 
     # Verify copy was successful
     if [ "$success" = false ]; then
-        echo -e "${red}[UNIT 6 PROJECT]${none} Error: Could not download images.zip to unit6/images.zip"
-        echo -e "${red}[UNIT 6 PROJECT]${none} Try downloading manually from ${scripts_repo}unit6/images.zip and placing in ~/unit6."
+        echo -e "${red}[UNIT 6 PROJECT]${none} Error: Could not copy images.zip to unit6/images.zip"
+        echo -e "${red}[UNIT 6 PROJECT]${none} Try copying manually from ${scripts_dir}unit6/images.zip and placing in ~/unit6."
         exit 1
     else
         sudo chown $USER:$USER "$HOME/unit6/images.zip"
         # Unzip the images.zip file
         cd ~/unit6
         unzip images.zip
-        echo -e "${green}[UNIT 6 PROJECT]${none} File images.zip downloaded successfully."
+        echo -e "${green}[UNIT 6 PROJECT]${none} File images.zip copied successfully."
     fi
 fi
 

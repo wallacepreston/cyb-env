@@ -5,8 +5,7 @@ red='\033[0;31m'
 yellow='\033[33m'
 course="CYB101"
 
-branch=${1:-"main"}
-scripts_repo="https://raw.githubusercontent.com/codepath/cyb101-vm-setup/${branch}/Scripts/"
+scripts_dir="./Scripts/"
 
 # Function to check and perform system updates
 perform_system_updates() {
@@ -21,13 +20,6 @@ perform_system_updates() {
 
         if [ $update_age -ge 7 ]; then # More than 7 days since last update
             echo -e "${yellow}INFO:${none} The system needs to update."
-            echo -e "${yellow}INFO:${none} During that time, you will need to leave your machine on and connected to the internet."
-            read -p "Do you want to continue with the update? (y/n) " -n 1 -r 
-            echo
-            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                echo "Exiting the program. Goodbye!"
-                exit 1
-            fi
             echo -e "Downloading and running the update script..."
             wget "https://raw.githubusercontent.com/codepath/cyb101-vm-setup/main/Scripts/update.sh" -O update.sh
             chmod +x update.sh
@@ -37,13 +29,6 @@ perform_system_updates() {
         fi
     else
         echo -e "${yellow}INFO:${none}No update history found... the system needs to update."
-        echo -e "${yellow}INFO:${none} During that time, you will need to leave your machine on and connected to the internet."
-        read -p "Do you want to continue with update? (y/n) " -n 1 -r 
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            echo "Exiting the program. Goodbye!"
-            exit 1
-        fi
         wget "https://raw.githubusercontent.com/codepath/cyb101-vm-setup/main/Scripts/update.sh" -O update.sh
         chmod +x update.sh
         ./update.sh
@@ -54,10 +39,6 @@ perform_system_updates() {
 echo -e "Welcome to ${green}CodePath Cybersecurity${none}!"
 echo -e "This tool will help you set up your environment for the ${course} course."
 
-if [ "$branch" != "main" ]; then
-    echo -e "${yellow}WARNING: You are using the a non-default branch ${branch}.${none}"
-    echo -e "${yellow}This is intended for development purposes only.${none}"
-fi
 
 # Check if user is running Ubuntu
 if [ -f /etc/os-release ]; then
@@ -105,20 +86,11 @@ install_all_scripts() {
 # Function to install a specific script
 install_specific_unit() {
     unit=$1
-    dirname="tmp_$course_${unit}"
-
-    # Move to a temporary directory to download the script
-    mkdir -p $dirname
-    cd $dirname
 
     # Download and run Lab script
     install_specific_script $unit lab
     # Download and run Project script
     install_specific_script $unit project
-
-    # Move back to the original directory and remove the temporary directory
-    cd ..
-    rm -rf $dirname
 }
 
 # Function to install a specific script
@@ -132,10 +104,9 @@ install_specific_script() {
         script_name="rdp_setup.sh"
     fi
 
-    # Download and run script
-    wget "${scripts_repo}${script_name}"
-    chmod +x ${script_name}
-    ./${script_name} ${branch}
+    # run script
+    chmod +x "${scripts_dir}${script_name}"
+    ${scripts_dir}${script_name}
 
     # Check the exit status of the script
     status=$?
@@ -145,55 +116,12 @@ install_specific_script() {
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
             echo "Exiting the program. Goodbye!"
-            cd ..
-            rm -rf "tmp_$course_${unit}"
             exit 1
         fi       
     fi
 }
 
-# Function to show the menu and process user input
-show_menu() {
-    echo "Please choose an option:"
-    echo "1. Install all units"
-    echo "2. Install a specific unit"
-    echo "3. Install RDP (Remote Desktop Protocol)"
-    echo "4. Exit"
-
-    read -p "Enter your choice (1-4): " choice
-
-    case $choice in
-        1)
-            install_all_scripts
-            ;;
-        2)
-            unit_number=""
-            while [[ ! $unit_number =~ ^[1-8]$ ]]; do
-                read -p "Enter the number of the unit to install (1-8): " unit_number
-                if [[ ! $unit_number =~ ^[1-8]$ ]]; then
-                    echo "Invalid input, please enter a number between 1 and 8."
-                fi
-            done
-            install_specific_unit "$unit_number"
-            ;;
-        3)
-            install_specific_script 0 "rdp"
-            ;;
-        4)
-            echo "Exiting the program. Goodbye!"
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice, please try again."
-            show_menu
-            ;;
-    esac
-}
-
 # Ensure the system is updated before proceeding
 perform_system_updates
 
-# Main program loop
-while true; do
-    show_menu
-done
+install_all_scripts
