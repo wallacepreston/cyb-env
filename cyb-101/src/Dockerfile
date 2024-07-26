@@ -13,6 +13,8 @@ RUN apt install -y john
 RUN apt install -y curl dnsutils openssh-client sudo
 RUN apt install -y vim
 RUN apt install -y git
+RUN apt install -y unzip
+RUN apt install -y tree
 # python3-venv is required to create virtual environments below
 RUN apt install -y python3-venv && rm -rf /var/lib/apt/lists/*
 RUN apt clean && \
