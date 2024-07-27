@@ -29,14 +29,14 @@ Access the 👉 [CyberSecurity 101 environment setup links here](cyb-101/README.
   - ❌ Lab: Can edit hosts file and use dig, but can't install firefox or do the DNS Tricks portion, since it's a GUI
   - 🟡 Project: Can run docker in a separate terminal (in IDX, but not the docker container) with `docker run --name metasploitable -d tleemcjr/metasploitable2:latest sh -c "/bin/services.sh"`
 - Unit 5 - In progress
-  - 🟢 Lab: Can run (vt-cli virus detection)
-  - ❌ Project: Having issues with msfvenom (Install process can't find packages. I'll get it working though.)
+  - 🟢 Lab: Working (vt-cli virus detection)
+  - 🟢 Project: Working (metasploitable)
 - Unit 6 - Working
   - 🔵 Lab: No env necessary (cyberchef)
-  - 🟢 Project: Working - Can run (Images with steghide - drag and drop image into idx folder volume to get access to the path in the docker container)
+  - 🟢 Project: Working - Working (Images with steghide - drag and drop image into idx folder volume to get access to the path in the docker container)
 - Unit 7 - Working
   - 🔵 Lab: No env necessary (Uses shodan from local machine browser)
-  - 🟢 Project: Can run (uses shodan from idx) `curl https://internetdb.shodan.io/45.33.123.209`
+  - 🟢 Project: Working (uses shodan from idx) `curl https://internetdb.shodan.io/45.33.123.209`
 - Units 8 - Limited
   - ❌ Lab: Can run SET, but can't run RDP, since no GUI, so can't visit a page and harvest the login credentials
   - 🔵 Project: Phish Tank (open ended)

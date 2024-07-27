@@ -30,16 +30,23 @@ RUN . /opt/venv/bin/activate && pip install vt-py
 # This can be done by setting the PATH environment variable to include the virtual environment's bin directory
 ENV PATH="/opt/venv/bin:$PATH"
 
+# Set up SSH server
+RUN mkdir /var/run/sshd
+
+# Download and run the Metasploit installer script
+RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+    chmod 755 msfinstall && \
+    ./msfinstall && \
+    rm msfinstall
+
 # Create a new user named 'codepath' and set up sudo access
 RUN useradd -m -s /bin/bash codepath && \
     echo 'codepath ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Set up SSH server
-RUN mkdir /var/run/sshd
-
-# Switch to the 'codepath' user
+# Switch to the 'codepath' user to initialize the database
 USER codepath
 WORKDIR /home/codepath
+RUN msfdb init
 
 # Create the .ssh directory and set the appropriate permissions
 RUN mkdir -p /home/codepath/.ssh && \
