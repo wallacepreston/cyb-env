@@ -22,6 +22,7 @@ Access the 👉 [CyberSecurity 101 environment setup links here](cyb-101/README.
 - Unit 2 - Working
   - 🟢 Lab: Working (ls, cd, pwd, mv, tree, cowsay, apt install)
   - 🟡 Project: Limited - git, ssh (can't ssh from externally, but can from within IDX)
+    - Alternative: Using [sdf.org](https://sdf.org/) for ssh-ing into a box.
 - Unit 3 - Working 
   - 🟢 Lab: Working (Password cracking with John)
   - 🟢 Project: Working (Password cracking with John)
