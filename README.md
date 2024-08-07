@@ -1,9 +1,7 @@
 # cyb-env
 Environment Setup for CodePath Cyber Courses
 
-Refer to [Readme](../README.md) for instructions on updating, building and pushing the image.
-
-Access the 👉 [CyberSecurity 101 environment setup links here](cyb-101/README.md) 👈
+Access the 👉 [CyberSecurity 101 environment setup links here](cyb-101/README.md) 👈 which also includes instructions on updating, building and pushing the image.
 
 ## Current Status
 (What's working and what's not)
