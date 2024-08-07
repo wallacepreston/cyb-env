@@ -44,7 +44,7 @@ Use the following code.  Or you can just use the above "Environment Link" instea
 
 
 ## Updating the image
-- Make your changes to the Dockerfile
+- Make your changes to the [Dockerfile](src/Dockerfile)
 - Change to the src directory within this project (not the root directory)
 
 ## Local Testing
