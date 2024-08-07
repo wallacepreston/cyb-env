@@ -27,7 +27,7 @@ Access the 👉 [CyberSecurity 101 environment setup links here](cyb-101/README.
   - 🟢 Lab: Working (Password cracking with John)
   - 🟢 Project: Working (Password cracking with John)
 - Unit 4 - Limited
-  - ❌ Lab: Can edit hosts file and use dig, but can't install firefox or do the DNS Tricks portion, since it's a GUI
+  - 🔴 Lab: Can edit hosts file and use dig, but can't install firefox or do the DNS Tricks portion, since it's a GUI
   - 🟡 Project: Can run docker in a separate terminal (in IDX, but not the docker container) with `docker run --name metasploitable -d tleemcjr/metasploitable2:latest sh -c "/bin/services.sh"`
 - Unit 5 - In progress
   - 🟢 Lab: Working (vt-cli virus detection)
@@ -39,7 +39,7 @@ Access the 👉 [CyberSecurity 101 environment setup links here](cyb-101/README.
   - 🔵 Lab: No env necessary (Uses shodan from local machine browser)
   - 🟢 Project: Working (uses shodan from idx) `curl https://internetdb.shodan.io/45.33.123.209`
 - Units 8 - Limited
-  - ❌ Lab: Can run SET, but can't run RDP, since no GUI, so can't visit a page and harvest the login credentials
+  - 🔴 Lab: Can run SET, but can't run RDP, since no GUI, so can't visit a page and harvest the login credentials
   - 🔵 Project: Phish Tank (open ended)
 - Unit 9
   - 🔵 Lab: No env necessary (web trackers in browser)

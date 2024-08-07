@@ -57,7 +57,7 @@ docker build -t codepath-cyb-101 .
 ### Running the image in a container locally
 To test the image before pushing, you can test it locally. Run the image in a container in interactive mode, setting up a volume to share the current directory on the host with the container at `/home/codepath/code`.
 ```bash
-docker run -it --rm --name codepath-cyb-101 -v $(pwd):/home/codepath/code codepath-cyb-101
+docker run -it --rm --name codepath-cyb-101 -v $(pwd):/home/codepath/code  -p 22:22 -p 3389:3389 codepath-cyb-101
 ```
 
 ## Prod Deployment
@@ -80,7 +80,7 @@ docker push prestonwallace/codepath:cyb-101
 ### Pulling and running the image from Docker Hub
 On the host (i.e. google idx), pull and run the image from Docker Hub
 ```bash
-docker run -it --rm --platform linux/amd64 --name codepath-cyb-101 -v $(pwd):/home/codepath/code -p 22:22 -p 3389:3389 prestonwallace/codepath:cyb-101
+docker run -it --rm --name codepath-cyb-101 -v $(pwd):/home/codepath/code -p 22:22 -p 3389:3389 prestonwallace/codepath:cyb-101
 ```
 
 ## Testing

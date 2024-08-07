@@ -7,11 +7,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update the package list, install required packages, and clean up
 RUN apt update
 RUN apt install -y xrdp openssh-server
+RUN apt install -y xfce4 xfce4-goodies
 RUN apt install -y python3 python3-pip python-is-python3
 RUN apt install -y snapd
 RUN apt install -y john
 RUN apt install -y curl dnsutils openssh-client sudo
-RUN apt install -y vim
+# editors
+RUN apt-get update
+RUN apt-get install -y vim
+RUN apt-get install -y nano
 RUN apt install -y git
 RUN apt install -y unzip
 RUN apt install -y tree
@@ -88,8 +92,13 @@ RUN sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd
     sed -i 's/#AuthorizedKeysFile .ssh\/authorized_keys .ssh\/authorized_keys2/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
+# Ensure the necessary directories exist
+RUN mkdir -p /etc/xrdp /var/log/xrdp
+
 # Set up RDP server
 RUN adduser xrdp ssl-cert
+# Configure XRDP
+RUN echo 'xfce4-session' > /home/codepath/.xsession
 RUN echo "startxfce4" > /home/codepath/.xsession
 
 # start ssh and xrdp services
